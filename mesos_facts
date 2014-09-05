@@ -10,11 +10,13 @@ def main():
 
   module = AnsibleModule(
       argument_spec = dict(
-        ip = dict(required=True)
+        ip = dict(required=False, default="127.0.0.1"),
+        port = dict(required=False, default="5050")
       )
   )
 
-  mesos_url = "http://" +  module.params['ip'] + ":5050/stats.json"
+  mesos_url = "http://" +  module.params['ip'] + ":" + module.params['port'] + \
+              "/stats.json"
 
   try:
     req = urllib2.Request(mesos_url)
